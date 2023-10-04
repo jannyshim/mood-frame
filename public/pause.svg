@@ -1,0 +1,6 @@
+<svg height="80" viewBox="0 0 80 80" width="80" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="40" cy="40" r="40"  fill="rgba(200, 200, 200, 0.5)" /> <!-- 동그란 배경 -->
+  <!-- 아이콘 경로를 중앙으로 이동 -->
+  <path d="M20 38h8V10h-8v28zm16-28v28h8V10h-8z" fill="#fffefb" transform="translate(8, 14)" />
+  <path d="M0 0h48v48H0z" fill="none" />
+</svg>
