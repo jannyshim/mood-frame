@@ -43,8 +43,8 @@ const InstaFrame = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center insta-frame-container">
-      <div className="flex flex-col justify-between items-center mt-[80px] gap-3">
+    <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-between items-center mt-[10px] gap-3">
         <input
           type="text"
           placeholder="제목"
@@ -61,7 +61,6 @@ const InstaFrame = () => {
           required
           className="p-2 rounded-md border-solid"
         />
-
         <input
           type="text"
           placeholder="시간(예시 02:37)"
