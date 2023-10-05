@@ -96,7 +96,7 @@ const ImagePreview = ({
       <div>
         <img
           src={imageSrc}
-          className="mt-7 rounded-xl object-cover w-[350px] h-[350px]"
+          className="mt-7 rounded-xl object-cover w-[300px] h-[300px]"
           alt="이미지"
         />
       </div>

@@ -43,44 +43,42 @@ const InstaFrame = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      <div className="flex justify-between items-center mt-[80px]">
-        <div className="flex flex-col gap-3">
-          <input
-            type="text"
-            placeholder="제목"
-            value={title}
-            onChange={handleTitleChange}
-            required
-            className="p-2 ml-2 rounded-md border-solid"
-          />
-          <input
-            type="text"
-            placeholder="소제목"
-            value={subtitle}
-            onChange={handleSubtitleChange}
-            required
-            className="p-2 ml-2 rounded-md border-solid"
-          />
-        </div>
-        <div className="flex flex-col gap-3">
-          <input
-            type="text"
-            placeholder="시간(예시 02:37)"
-            value={endTime}
-            onChange={handleTimeChange}
-            required
-            className="p-2 ml-2 rounded-md border-solid border-black"
-          />
-          <select
-            onChange={fontClick}
-            className="p-2 ml-2 rounded-md border-solid border-black"
-          >
-            <option value="ChosunNm">조선일보명조</option>
-            <option value="NotoSansKR">노토산스</option>
-          </select>
-        </div>
-        <div className="flex flex-col gap-3">
+    <div className="flex flex-col justify-center items-center insta-frame-container">
+      <div className="flex flex-col justify-between items-center mt-[80px] gap-3">
+        <input
+          type="text"
+          placeholder="제목"
+          value={title}
+          onChange={handleTitleChange}
+          required
+          className="p-2 rounded-md border-solid"
+        />
+        <input
+          type="text"
+          placeholder="소제목"
+          value={subtitle}
+          onChange={handleSubtitleChange}
+          required
+          className="p-2 rounded-md border-solid"
+        />
+
+        <input
+          type="text"
+          placeholder="시간(예시 02:37)"
+          value={endTime}
+          onChange={handleTimeChange}
+          required
+          className="p-2 rounded-md border-solid border-black"
+        />
+        <select
+          onChange={fontClick}
+          className="p-2 rounded-md border-solid border-black"
+        >
+          <option value="ChosunNm">조선일보명조</option>
+          <option value="NotoSansKR">노토산스</option>
+        </select>
+
+        <div className="flex gap-3">
           <button
             onClick={handleReset}
             className="bg-blue-500 text-white p-1 ml-1 rounded-md w-20"
@@ -97,7 +95,7 @@ const InstaFrame = () => {
       </div>
       <div
         className={
-          "flex flex-col justify-center items-center h-[600px] w-[600px] mt-4 mb-4"
+          "flex flex-col justify-center items-center w-3/5 h-3/5 pb-4 mt-4 mb-4"
         }
         style={{
           backgroundColor: imageColor ? imageColor : "#959591",
@@ -115,7 +113,7 @@ const InstaFrame = () => {
           </h1>
           <p className={`text-lg mb-3 text-slate-50 ${textFont}`}>{subtitle}</p>
         </div>
-        <div className={`flex flex-row gap-5 ${textFont}`}>
+        <div className={`flex flex-row w-4/5 ${textFont}`}>
           <MusicPlayer endTime={endTime} />
         </div>
       </div>

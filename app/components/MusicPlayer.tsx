@@ -11,7 +11,7 @@ const MusicPlayer = ({ endTime }: { endTime: string }) => {
   };
 
   return (
-    <div>
+    <div className="w-full">
       <div className="flex flex-col gap-1">
         {/* 위치 조절 토글 */}
         <input
@@ -20,7 +20,7 @@ const MusicPlayer = ({ endTime }: { endTime: string }) => {
           max="100"
           value={currentTime}
           onChange={handleTimeChange}
-          className="w-[350px] h-1 bg-transparent appearance-none border-none"
+          className="h-1 bg-transparent appearance-none border-none"
           style={{
             backgroundColor: "rgba(200, 200, 200, 0.5)",
           }}
@@ -31,12 +31,12 @@ const MusicPlayer = ({ endTime }: { endTime: string }) => {
           <span className="ml-auto">{endTime}</span>
         </div>
       </div>
-      <div className="flex flex-row gap-5">
-        <img src="/shuffle.svg" alt="Home Icon" width={30} height={30} />
-        <img src="/previous.svg" alt="Home Icon" width={50} height={50} />
-        <img src="/pause.svg" alt="Home Icon" />
-        <img src="/skip.svg" alt="Home Icon" width={50} height={50} />
-        <img src="/repeat.svg" alt="Home Icon" width={30} height={30} />
+      <div className="flex justify-center items-center gap-5">
+        <img src="/shuffle.svg" alt="Home Icon" width={20} height={20} />
+        <img src="/previous.svg" alt="Home Icon" width={40} height={40} />
+        <img src="/pause.svg" alt="Home Icon" width={40} height={40} />
+        <img src="/skip.svg" alt="Home Icon" width={40} height={40} />
+        <img src="/repeat.svg" alt="Home Icon" width={20} height={20} />
       </div>
     </div>
   );
