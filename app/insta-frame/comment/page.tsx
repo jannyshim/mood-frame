@@ -44,13 +44,13 @@ const CommentFrame = () => {
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="flex justify-between items-center m-2">
-        <div className="flex flex-col justify-between items-center gap-3">
+        <div className="flex flex-col justify-between items-center gap-3 mt-5">
           <textarea
             placeholder="내용"
             value={content}
             onChange={handleContentChange}
             required
-            className="p-2 ml-2 rounded-md border-solid h-[90px]"
+            className="p-2 ml-2 rounded-md border-solid h-[100px]"
           />
 
           <input
@@ -78,14 +78,14 @@ const CommentFrame = () => {
         </div>
       </div>
       <div
-        className={"relative flex flex-col items-center w-3/4 mt-4 mb-4"}
+        className={"relative flex flex-col items-center w-[350px] mt-4 mb-4"}
         style={{
           backgroundColor: imageColor ? imageColor : "#959591",
         }}
       >
         <img
           src={imageFile} // 이미지 파일의 Blob URL
-          className="mt-9 rounded-xl object-cover w-[300px] h-[300px]"
+          className="mt-9 rounded-xl object-cover w-[250px] h-[250px]"
           alt="이미지"
         />
         <div className="absolute top-0 left-0 w-full h-full bg-neutral-800/80"></div>

@@ -44,7 +44,7 @@ const InstaFrame = () => {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="flex flex-col justify-between items-center mt-[10px] gap-3">
+      <div className="flex flex-col justify-between items-center mt-[100px] gap-3">
         <input
           type="text"
           placeholder="제목"
@@ -94,7 +94,7 @@ const InstaFrame = () => {
       </div>
       <div
         className={
-          "flex flex-col justify-center items-center w-3/5 h-3/5 pb-4 mt-4 mb-4"
+          "flex flex-col justify-center items-center w-[350px] pb-4 mt-4 mb-4"
         }
         style={{
           backgroundColor: imageColor ? imageColor : "#959591",

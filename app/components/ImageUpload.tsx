@@ -68,39 +68,39 @@ const ImagePreview = ({
   };
 
   return (
-    <>
-      <div className="top-0 absolute flex flex-row mt-5">
+    <div>
+      <div className="top-0 absolute mt-5">
         <input
           accept="image/*"
           multiple
           type="file"
           onChange={(e) => onUpload(e)}
         />
-        <div className="flex flex-row">
-          {/* 추출된 색상 팔레트를 여기에 표시하는 UI를 만듭니다 */}
+        <div>
+          배경색 선택
           {colorPalette.map((color, index) => (
             <button
               key={index}
               style={{
                 backgroundColor: color,
-                width: "30px",
-                height: "30px",
-                margin: "5px",
+                width: "24px",
+                height: "24px",
+                margin: "3px",
               }}
               onClick={handleClick}
               value={color}
-            ></button>
+            />
           ))}
         </div>
       </div>
-      <div>
+      <div className="flex items-center justify-center">
         <img
           src={imageSrc}
-          className="mt-7 rounded-xl object-cover w-[300px] h-[300px]"
+          className="mt-7 rounded-xl object-cover w-[250px] h-[250px]"
           alt="이미지"
         />
       </div>
-    </>
+    </div>
   );
 };
 
