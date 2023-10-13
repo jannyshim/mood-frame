@@ -14,6 +14,7 @@ const InstaFrame = () => {
   const [imageColor, setImageColor] = useState<string>("");
   const [imageFile, setImageFile] = useState("/catpic.jpeg");
   const [fontStyle, setFontStyle] = useState("ChosunNm");
+  const [canvasRef, setCanvasRef] = useState<HTMLElement | null>(null);
 
   let textFont = fonts[fontStyle];
 
@@ -38,6 +39,7 @@ const InstaFrame = () => {
     setTitle("제목");
     setSubtitle("소제목");
     setEndTime("02:37");
+    canvasRef?.remove();
   };
   const fontClick = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFontStyle(e.currentTarget.value);
@@ -45,6 +47,9 @@ const InstaFrame = () => {
   };
 
   const handleCaptureAndDownload = async () => {
+    if (canvasRef) {
+      canvasRef.remove(); // 이전 canvas 삭제
+    }
     if (!divRef.current) return;
 
     const div = divRef.current;
@@ -52,15 +57,8 @@ const InstaFrame = () => {
     htmlToImage
       .toCanvas(div, { includeQueryParams: true })
       .then(function (canvas) {
-        // Canvas를 이미지로 변환하여 다운로드 링크 생성
-        const image = new Image();
-        image.src = canvas.toDataURL("image/png");
-
-        // 사용자에게 이미지 다운로드를 제공
-        const link = document.createElement("a");
-        link.href = image.src;
-        link.download = "insta-frame.png";
-        link.click();
+        document.body.appendChild(canvas);
+        setCanvasRef(canvas); // canvasRef를 업데이트
       });
   };
 
@@ -118,7 +116,7 @@ const InstaFrame = () => {
             onClick={handleCaptureAndDownload}
             className="bg-blue-500 text-white p-1 ml-1 rounded-md w-20"
           >
-            다운로드
+            사진변환
           </button>
           <button
             onClick={handleCommentClick}

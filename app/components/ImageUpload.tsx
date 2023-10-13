@@ -13,7 +13,7 @@ const ImageUpload = ({
   imageFile: string;
   setImageFile: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  const [imageSrc, setImageSrc] = useState("/catpic.jpeg");
+  const [imageSrc, setImageSrc] = useState(imageFile);
   const [color, setColor] = useState("");
   const [colorPalette, setColorPalette] = useState<string[]>([]);
 

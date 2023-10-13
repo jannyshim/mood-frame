@@ -11,6 +11,7 @@ const CommentFrame = () => {
   const [imageFile, setImageFile] = useState("");
   const [fontStyle, setFontStyle] = useState("ChosunNm");
   const [pgNm, setPgNm] = useState("");
+  const [canvasRef, setCanvasRef] = useState<HTMLElement | null>(null);
 
   let textFont = fonts[fontStyle];
   const divRef = useRef<HTMLDivElement>(null);
@@ -52,6 +53,9 @@ const CommentFrame = () => {
   };
 
   const handleCaptureAndDownload = async () => {
+    if (canvasRef) {
+      canvasRef.remove(); // 이전 canvas 삭제
+    }
     if (!divRef.current) return;
 
     const div = divRef.current;
@@ -59,15 +63,8 @@ const CommentFrame = () => {
     htmlToImage
       .toCanvas(div, { includeQueryParams: true })
       .then(function (canvas) {
-        // Canvas를 이미지로 변환하여 다운로드 링크 생성
-        const image = new Image();
-        image.src = canvas.toDataURL("image/png");
-
-        // 사용자에게 이미지 다운로드를 제공
-        const link = document.createElement("a");
-        link.href = image.src;
-        link.download = "insta-frame.png";
-        link.click();
+        document.body.appendChild(canvas);
+        setCanvasRef(canvas); // canvasRef를 업데이트
       });
   };
 
