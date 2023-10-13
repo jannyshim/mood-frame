@@ -1,24 +1,27 @@
 "use client";
+
+import saveAs from "file-saver";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import ImagePreview from "../components/ImageUpload";
+import React, { useState, useRef } from "react";
+import ImageUpload from "../components/ImageUpload";
 import MusicPlayer from "../components/MusicPlayer";
 import { fonts } from "../utils/fonts";
+import * as htmlToImage from "html-to-image";
 
 const InstaFrame = () => {
   const [title, setTitle] = useState("제목");
   const [subtitle, setSubtitle] = useState("소제목");
   const [endTime, setEndTime] = useState("02:37");
   const [imageColor, setImageColor] = useState<string>("");
-  const [imageFile, setImageFile] = useState("");
+  const [imageFile, setImageFile] = useState("/catpic.jpeg");
   const [fontStyle, setFontStyle] = useState("ChosunNm");
 
   let textFont = fonts[fontStyle];
 
   const router = useRouter();
+  const divRef = useRef<HTMLDivElement>(null);
 
   const handleCommentClick = () => {
-    // comment-frame 페이지로 이동하고 이미지 색상과 이미지 URL을 매개변수로 전달
     router.push(`/insta-frame/comment?imageColor=${imageColor}`);
   };
 
@@ -42,9 +45,27 @@ const InstaFrame = () => {
     console.log(e.currentTarget.value);
   };
 
+  const handleCaptureAndDownload = async () => {
+    if (!divRef.current) return;
+
+    const div = divRef.current;
+
+    htmlToImage.toBlob(div).then(function (blob) {
+      if (blob !== null) {
+        saveAs(blob, "insta-frame.png");
+      }
+    });
+  };
+
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="flex flex-col justify-between items-center mt-[100px] gap-3">
+      <ImageUpload
+        imageColor={imageColor}
+        setImageColor={setImageColor}
+        imageFile={imageFile}
+        setImageFile={setImageFile}
+      />
+      <div className="flex flex-col justify-between items-center mt-3 gap-3">
         <input
           type="text"
           placeholder="제목"
@@ -75,14 +96,22 @@ const InstaFrame = () => {
         >
           <option value="ChosunNm">조선일보명조</option>
           <option value="NotoSansKR">노토산스</option>
+          <option value="JeonjuCraftGoR">전주공예고딕</option>
+          <option value="BookkMyungjo">부크크명조</option>
         </select>
 
-        <div className="flex gap-3">
+        <div className="flex gap-1">
           <button
             onClick={handleReset}
             className="bg-blue-500 text-white p-1 ml-1 rounded-md w-20"
           >
             다시 쓰기
+          </button>
+          <button
+            onClick={handleCaptureAndDownload}
+            className="bg-blue-500 text-white p-1 ml-1 rounded-md w-20"
+          >
+            다운로드
           </button>
           <button
             onClick={handleCommentClick}
@@ -92,7 +121,9 @@ const InstaFrame = () => {
           </button>
         </div>
       </div>
+
       <div
+        ref={divRef}
         className={
           "flex flex-col justify-center items-center w-[350px] pb-4 mt-4 mb-4"
         }
@@ -101,12 +132,13 @@ const InstaFrame = () => {
         }}
       >
         <div>
-          <ImagePreview
-            imageColor={imageColor}
-            setImageColor={setImageColor}
-            imageFile={imageFile}
-            setImageFile={setImageFile}
-          />
+          <div className="flex items-center justify-center">
+            <img
+              src={imageFile}
+              className="mt-7 rounded-xl object-cover w-[250px] h-[250px]"
+              alt="이미지"
+            />
+          </div>
           <h1 className={`text-3xl font-bold mt-5 text-slate-50 ${textFont}`}>
             {title}
           </h1>

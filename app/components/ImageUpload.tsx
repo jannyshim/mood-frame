@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import ColorThief from "colorthief";
 
-const ImagePreview = ({
+const ImageUpload = ({
   imageColor,
   setImageColor,
   imageFile,
@@ -68,40 +68,31 @@ const ImagePreview = ({
   };
 
   return (
-    <div>
-      <div className="top-0 absolute mt-5">
-        <input
-          accept="image/*"
-          multiple
-          type="file"
-          onChange={(e) => onUpload(e)}
-        />
-        <div>
-          배경색 선택
-          {colorPalette.map((color, index) => (
-            <button
-              key={index}
-              style={{
-                backgroundColor: color,
-                width: "24px",
-                height: "24px",
-                margin: "3px",
-              }}
-              onClick={handleClick}
-              value={color}
-            />
-          ))}
-        </div>
-      </div>
-      <div className="flex items-center justify-center">
-        <img
-          src={imageSrc}
-          className="mt-7 rounded-xl object-cover w-[250px] h-[250px]"
-          alt="이미지"
-        />
+    <div className="flex flex-col justify-center items-center mt-5">
+      <input
+        accept="image/*"
+        multiple
+        type="file"
+        onChange={(e) => onUpload(e)}
+      />
+      <div className="flex justify-center items-center">
+        배경색 선택 🎨
+        {colorPalette.map((color, index) => (
+          <button
+            key={index}
+            style={{
+              backgroundColor: color,
+              width: "24px",
+              height: "24px",
+              margin: "3px",
+            }}
+            onClick={handleClick}
+            value={color}
+          />
+        ))}
       </div>
     </div>
   );
 };
 
-export default ImagePreview;
+export default ImageUpload;
