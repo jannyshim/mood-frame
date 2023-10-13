@@ -50,11 +50,16 @@ const InstaFrame = () => {
     const div = divRef.current;
 
     htmlToImage
-      .toJpeg(div, { includeQueryParams: true })
-      .then(function (dataUrl) {
+      .toCanvas(div, { includeQueryParams: true })
+      .then(function (canvas) {
+        // Canvas를 이미지로 변환하여 다운로드 링크 생성
+        const image = new Image();
+        image.src = canvas.toDataURL("image/png");
+
+        // 사용자에게 이미지 다운로드를 제공
         const link = document.createElement("a");
-        link.download = "insta-frame.jpeg";
-        link.href = dataUrl;
+        link.href = image.src;
+        link.download = "insta-frame.png";
         link.click();
       });
   };

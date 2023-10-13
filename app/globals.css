@@ -27,7 +27,7 @@ body {
   font-family: "ChosunNm";
   font-weight: normal;
   font-style: normal;
-  src: url("/fonts/ChosunNm.ttf") format("ttf"),
+  src: url("/fonts/ChosunNm.ttf") format("truetype"),
     url("/fonts/ChosunNm.woff2") format("woff2"),
     url("/fonts/ChosunNm.woff") format("woff");
   font-display: swap;
@@ -37,7 +37,7 @@ body {
   font-family: "NotoSansKR";
   font-weight: 400;
   font-style: normal;
-  src: url("/fonts/NotoSansKR-Regular.ttf") format("ttf"),
+  src: url("/fonts/NotoSansKR-Regular.ttf") format("truetype"),
     url("/fonts/NotoSans-Regular.woff") format("woff"),
     url("/fonts/NotoSans-Regular.woff2") format("woff2");
 
