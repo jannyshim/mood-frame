@@ -1,6 +1,6 @@
 "use client";
 import * as htmlToImage from "html-to-image";
-import saveAs from "file-saver";
+
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState, useEffect, useRef } from "react";
 import { fonts } from "../../utils/fonts";
@@ -56,11 +56,14 @@ const CommentFrame = () => {
 
     const div = divRef.current;
 
-    htmlToImage.toBlob(div).then(function (blob) {
-      if (blob !== null) {
-        saveAs(blob, "comment-frame.png");
-      }
-    });
+    htmlToImage
+      .toJpeg(div, { includeQueryParams: true })
+      .then(function (dataUrl) {
+        const link = document.createElement("a");
+        link.download = "comment-frame.jpeg";
+        link.href = dataUrl;
+        link.click();
+      });
   };
 
   return (
@@ -100,7 +103,7 @@ const CommentFrame = () => {
             />
           </div>
 
-          <div className="flex gap-1">
+          <div className="flex gap-1 mb-4">
             <button
               onClick={handleReset}
               className="bg-blue-500 text-white p-1 ml-1 rounded-md w-20"
@@ -125,7 +128,7 @@ const CommentFrame = () => {
       <div
         ref={divRef}
         className={
-          "relative flex flex-col items-center w-[350px] h-[462px] pb-4 mt-4 mb-4"
+          "relative flex flex-col items-center w-[350px] h-[462px] pb-4 mb-4"
         }
         style={{
           backgroundColor: imageColor ? imageColor : "#959591",

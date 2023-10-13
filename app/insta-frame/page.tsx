@@ -1,6 +1,5 @@
 "use client";
 
-import saveAs from "file-saver";
 import { useRouter } from "next/navigation";
 import React, { useState, useRef } from "react";
 import ImageUpload from "../components/ImageUpload";
@@ -50,11 +49,14 @@ const InstaFrame = () => {
 
     const div = divRef.current;
 
-    htmlToImage.toBlob(div).then(function (blob) {
-      if (blob !== null) {
-        saveAs(blob, "insta-frame.png");
-      }
-    });
+    htmlToImage
+      .toJpeg(div, { includeQueryParams: true })
+      .then(function (dataUrl) {
+        const link = document.createElement("a");
+        link.download = "insta-frame.jpeg";
+        link.href = dataUrl;
+        link.click();
+      });
   };
 
   return (
@@ -100,7 +102,7 @@ const InstaFrame = () => {
           <option value="BookkMyungjo">부크크명조</option>
         </select>
 
-        <div className="flex gap-1">
+        <div className="flex gap-1 mb-4">
           <button
             onClick={handleReset}
             className="bg-blue-500 text-white p-1 ml-1 rounded-md w-20"
@@ -125,7 +127,7 @@ const InstaFrame = () => {
       <div
         ref={divRef}
         className={
-          "flex flex-col justify-center items-center w-[350px] pb-4 mt-4 mb-4"
+          "flex flex-col justify-center items-center w-[350px] pb-4 mb-4"
         }
         style={{
           backgroundColor: imageColor ? imageColor : "#959591",
