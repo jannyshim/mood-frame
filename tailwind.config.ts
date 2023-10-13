@@ -17,6 +17,8 @@ const config: Config = {
     fontFamily: {
       ChosunNm: ["ChosunNm"],
       NotoSansKR: ["NotoSansKR"],
+      JeonjuCraftGoR: ["JeonjuCraftGoR"],
+      BookkMyungjo: ["BookkMyungjo"],
     },
   },
   plugins: [],
