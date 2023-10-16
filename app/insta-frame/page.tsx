@@ -5,7 +5,10 @@ import React, { useState, useRef } from "react";
 import ImageUpload from "../components/ImageUpload";
 import MusicPlayer from "../components/MusicPlayer";
 import { fonts } from "../utils/fonts";
-import * as htmlToImage from "html-to-image";
+import { dataURLtoFile } from "../utils/dataURLtoFile";
+import { shareFile } from "../utils/shareFile";
+import { toPng } from "html-to-image";
+// import * as htmlToImage from "html-to-image";
 
 const InstaFrame = () => {
   const [title, setTitle] = useState("제목");
@@ -14,7 +17,6 @@ const InstaFrame = () => {
   const [imageColor, setImageColor] = useState<string>("");
   const [imageFile, setImageFile] = useState("/catpic.jpeg");
   const [fontStyle, setFontStyle] = useState("ChosunNm");
-  const [canvasRef, setCanvasRef] = useState<HTMLElement | null>(null);
 
   let textFont = fonts[fontStyle];
 
@@ -39,27 +41,38 @@ const InstaFrame = () => {
     setTitle("제목");
     setSubtitle("소제목");
     setEndTime("02:37");
-    canvasRef?.remove();
   };
   const fontClick = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFontStyle(e.currentTarget.value);
     console.log(e.currentTarget.value);
   };
 
-  const handleCaptureAndDownload = async () => {
-    if (canvasRef) {
-      canvasRef.remove(); // 이전 canvas 삭제
-    }
-    if (!divRef.current) return;
+  // const handleCaptureAndDownload = async () => {
+  //   if (!divRef.current) return;
 
-    const div = divRef.current;
+  //   const div = divRef.current;
 
-    htmlToImage
-      .toCanvas(div, { includeQueryParams: true })
-      .then(function (canvas) {
-        document.body.appendChild(canvas);
-        setCanvasRef(canvas); // canvasRef를 업데이트
+  //   htmlToImage
+  //     .toJpeg(div, { includeQueryParams: true })
+  //     .then(function (dataUrl) {
+  //       const link = document.createElement("a");
+  //       link.download = "insta-frame.jpeg";
+  //       link.href = dataUrl;
+  //       link.click();
+  //     });
+  // };
+
+  const captureAndShareImage = () => {
+    const instaframeElement = document.getElementById("insta-frame");
+
+    if (instaframeElement) {
+      toPng(instaframeElement, { quality: 0.95 }).then((dataUrl) => {
+        const file = dataURLtoFile(dataUrl, "instaframe.png");
+        shareFile(file, "Title", "mood-frame");
       });
+    } else {
+      console.error('Element with id "instaframe" not found in the DOM.');
+    }
   };
 
   return (
@@ -113,10 +126,10 @@ const InstaFrame = () => {
             다시 쓰기
           </button>
           <button
-            onClick={handleCaptureAndDownload}
+            onClick={captureAndShareImage}
             className="bg-blue-500 text-white p-1 ml-1 rounded-md w-20"
           >
-            사진변환
+            다운로드
           </button>
           <button
             onClick={handleCommentClick}
@@ -132,6 +145,7 @@ const InstaFrame = () => {
         className={
           "flex flex-col justify-center items-center w-[350px] pb-4 mb-4"
         }
+        id="insta-frame"
         style={{
           backgroundColor: imageColor ? imageColor : "#959591",
         }}
