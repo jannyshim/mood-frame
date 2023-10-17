@@ -5,10 +5,7 @@ import React, { useState, useRef } from "react";
 import ImageUpload from "../components/ImageUpload";
 import MusicPlayer from "../components/MusicPlayer";
 import { fonts } from "../utils/fonts";
-import { dataURLtoFile } from "../utils/dataURLtoFile";
-import { shareFile } from "../utils/shareFile";
-import { toPng } from "html-to-image";
-// import * as htmlToImage from "html-to-image";
+import * as htmlToImage from "html-to-image";
 
 const InstaFrame = () => {
   const [title, setTitle] = useState("제목");
@@ -17,6 +14,7 @@ const InstaFrame = () => {
   const [imageColor, setImageColor] = useState<string>("");
   const [imageFile, setImageFile] = useState("/catpic.jpeg");
   const [fontStyle, setFontStyle] = useState("ChosunNm");
+  const [capture, setCapture] = useState("");
 
   let textFont = fonts[fontStyle];
 
@@ -47,32 +45,16 @@ const InstaFrame = () => {
     console.log(e.currentTarget.value);
   };
 
-  // const handleCaptureAndDownload = async () => {
-  //   if (!divRef.current) return;
+  const handleCaptureAndDownload = async () => {
+    if (!divRef.current) return;
 
-  //   const div = divRef.current;
+    const div = divRef.current;
 
-  //   htmlToImage
-  //     .toJpeg(div, { includeQueryParams: true })
-  //     .then(function (dataUrl) {
-  //       const link = document.createElement("a");
-  //       link.download = "insta-frame.jpeg";
-  //       link.href = dataUrl;
-  //       link.click();
-  //     });
-  // };
-
-  const captureAndShareImage = () => {
-    const instaframeElement = document.getElementById("insta-frame");
-
-    if (instaframeElement) {
-      toPng(instaframeElement, { quality: 0.95 }).then((dataUrl) => {
-        const file = dataURLtoFile(dataUrl, "instaframe.png");
-        shareFile(file, "Title", "mood-frame");
+    htmlToImage
+      .toJpeg(div, { includeQueryParams: true })
+      .then(function (dataUrl) {
+        setCapture(dataUrl);
       });
-    } else {
-      console.error('Element with id "instaframe" not found in the DOM.');
-    }
   };
 
   return (
@@ -126,10 +108,10 @@ const InstaFrame = () => {
             다시 쓰기
           </button>
           <button
-            onClick={captureAndShareImage}
+            onClick={handleCaptureAndDownload}
             className="bg-blue-500 text-white p-1 ml-1 rounded-md w-20"
           >
-            다운로드
+            사진변환
           </button>
           <button
             onClick={handleCommentClick}
@@ -145,7 +127,6 @@ const InstaFrame = () => {
         className={
           "flex flex-col justify-center items-center w-[350px] pb-4 mb-4"
         }
-        id="insta-frame"
         style={{
           backgroundColor: imageColor ? imageColor : "#959591",
         }}
@@ -167,6 +148,13 @@ const InstaFrame = () => {
           <MusicPlayer endTime={endTime} />
         </div>
       </div>
+      {capture ? (
+        <a href={capture} target="_blank" rel="noopener noreferrer">
+          만든 이미지로 바로가기
+        </a>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

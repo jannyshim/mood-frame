@@ -11,7 +11,7 @@ const CommentFrame = () => {
   const [imageFile, setImageFile] = useState("");
   const [fontStyle, setFontStyle] = useState("ChosunNm");
   const [pgNm, setPgNm] = useState("");
-  const [canvasRef, setCanvasRef] = useState<HTMLElement | null>(null);
+  const [capture, setCapture] = useState("");
 
   let textFont = fonts[fontStyle];
   const divRef = useRef<HTMLDivElement>(null);
@@ -53,18 +53,14 @@ const CommentFrame = () => {
   };
 
   const handleCaptureAndDownload = async () => {
-    if (canvasRef) {
-      canvasRef.remove(); // 이전 canvas 삭제
-    }
     if (!divRef.current) return;
 
     const div = divRef.current;
 
     htmlToImage
-      .toCanvas(div, { includeQueryParams: true })
-      .then(function (canvas) {
-        document.body.appendChild(canvas);
-        setCanvasRef(canvas); // canvasRef를 업데이트
+      .toJpeg(div, { includeQueryParams: true })
+      .then(function (dataUrl) {
+        setCapture(dataUrl);
       });
   };
 
@@ -116,7 +112,7 @@ const CommentFrame = () => {
               onClick={handleCaptureAndDownload}
               className="bg-blue-500 text-white p-1 ml-1 rounded-md w-20"
             >
-              다운로드
+              사진변환
             </button>
             <button
               onClick={handleInstaClick}
@@ -166,6 +162,13 @@ const CommentFrame = () => {
           </div>
         </div>
       </div>
+      {capture ? (
+        <a href={capture} target="_blank" rel="noopener noreferrer">
+          만든 이미지로 바로가기
+        </a>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
