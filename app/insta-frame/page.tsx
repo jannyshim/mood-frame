@@ -64,7 +64,7 @@ const InstaFrame = () => {
     const div = divRef.current;
 
     html2canvas(div, {
-      scale: 2,
+      scale: 1,
       scrollX: div.scrollLeft,
       scrollY: div.scrollTop,
     }).then((canvas) => {
