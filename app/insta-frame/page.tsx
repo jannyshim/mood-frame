@@ -63,11 +63,7 @@ const InstaFrame = () => {
 
     const div = divRef.current;
 
-    html2canvas(div, {
-      scale: 1,
-      scrollX: div.scrollLeft,
-      scrollY: div.scrollTop,
-    }).then((canvas) => {
+    html2canvas(div, { allowTaint: true }).then((canvas) => {
       canvas.toBlob((blob) => {
         if (blob !== null) {
           saveAs(blob, "insta-frame.png");
@@ -151,12 +147,8 @@ const InstaFrame = () => {
         }}
       >
         <div>
-          <div className="flex items-center justify-center">
-            <img
-              src={imageFile}
-              className="mt-7 rounded-xl object-cover w-[250px] h-[250px]"
-              alt="이미지"
-            />
+          <div className="mt-7 flex items-center justify-center overflow-hidden rounded-xl w-[250px] h-[250px]">
+            <img src={imageFile} className="w-[100%]" alt="이미지" />
           </div>
           <h1 className={`text-3xl font-bold mt-5 text-slate-50 ${textFont}`}>
             {title}
