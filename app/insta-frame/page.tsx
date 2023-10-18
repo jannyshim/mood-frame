@@ -5,7 +5,6 @@ import React, { useState, useRef } from "react";
 import ImageUpload from "../components/ImageUpload";
 import MusicPlayer from "../components/MusicPlayer";
 import { fonts } from "../utils/fonts";
-import * as htmlToImage from "html-to-image";
 import html2canvas from "html2canvas";
 import saveAs from "file-saver";
 
@@ -16,7 +15,7 @@ const InstaFrame = () => {
   const [imageColor, setImageColor] = useState<string>("");
   const [imageFile, setImageFile] = useState("/catpic.jpeg");
   const [fontStyle, setFontStyle] = useState("ChosunNm");
-  // const [capture, setCapture] = useState("");
+  const [imageStyle, setImageStyle] = useState("");
 
   let textFont = fonts[fontStyle];
 
@@ -42,22 +41,15 @@ const InstaFrame = () => {
     setSubtitle("소제목");
     setEndTime("02:37");
   };
+  const handleImage = (style: any) => {
+    setImageStyle(style);
+  };
+
   const fontClick = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFontStyle(e.currentTarget.value);
     console.log(e.currentTarget.value);
   };
 
-  // const handleCaptureAndDownload = async () => {
-  //   if (!divRef.current) return;
-
-  //   const div = divRef.current;
-
-  //   htmlToImage
-  //     .toJpeg(div, { includeQueryParams: true })
-  //     .then(function (dataUrl) {
-  //       setCapture(dataUrl);
-  //     });
-  // };
   const handleCaptureAndDownload = async () => {
     if (!divRef.current) return;
 
@@ -114,7 +106,20 @@ const InstaFrame = () => {
           <option value="JeonjuCraftGoR">전주공예고딕</option>
           <option value="BookkMyungjo">부크크명조</option>
         </select>
-
+        <div>
+          <button
+            onClick={() => handleImage("scale-150")}
+            className="bg-blue-300 text-white p-1 ml-1 rounded-md"
+          >
+            사진확대
+          </button>
+          <button
+            onClick={() => handleImage("scale-100")}
+            className="bg-blue-300 text-white p-1 ml-1 rounded-md"
+          >
+            원래크기
+          </button>
+        </div>
         <div className="flex gap-1 mb-4">
           <button
             onClick={handleReset}
@@ -148,7 +153,11 @@ const InstaFrame = () => {
       >
         <div>
           <div className="mt-7 flex items-center justify-center overflow-hidden rounded-xl w-[250px] h-[250px]">
-            <img src={imageFile} className="w-[100%]" alt="이미지" />
+            <img
+              src={imageFile}
+              className={`w-[100%] ${imageStyle}`}
+              alt="이미지"
+            />
           </div>
           <h1 className={`text-3xl font-bold mt-5 text-slate-50 ${textFont}`}>
             {title}
@@ -159,13 +168,6 @@ const InstaFrame = () => {
           <MusicPlayer endTime={endTime} />
         </div>
       </div>
-      {/* {capture ? (
-        <a href={capture} target="_blank" rel="noopener noreferrer">
-          만든 이미지로 바로가기
-        </a>
-      ) : (
-        <></>
-      )} */}
     </div>
   );
 };

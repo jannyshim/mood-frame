@@ -1,9 +1,10 @@
 "use client";
-import * as htmlToImage from "html-to-image";
 
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState, useEffect, useRef } from "react";
 import { fonts } from "../../utils/fonts";
+import html2canvas from "html2canvas";
+import saveAs from "file-saver";
 
 const CommentFrame = () => {
   const [content, setContent] = useState("내용");
@@ -11,7 +12,7 @@ const CommentFrame = () => {
   const [imageFile, setImageFile] = useState("");
   const [fontStyle, setFontStyle] = useState("ChosunNm");
   const [pgNm, setPgNm] = useState("");
-  const [capture, setCapture] = useState("");
+  const [imageStyle, setImageStyle] = useState("");
 
   let textFont = fonts[fontStyle];
   const divRef = useRef<HTMLDivElement>(null);
@@ -47,7 +48,9 @@ const CommentFrame = () => {
   const handlePageNm = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPgNm(e.target.value);
   };
-
+  const handleImage = (style: any) => {
+    setImageStyle(style);
+  };
   const fontClick = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFontStyle(e.currentTarget.value);
   };
@@ -57,11 +60,13 @@ const CommentFrame = () => {
 
     const div = divRef.current;
 
-    htmlToImage
-      .toJpeg(div, { includeQueryParams: true })
-      .then(function (dataUrl) {
-        setCapture(dataUrl);
+    html2canvas(div, { allowTaint: true }).then((canvas) => {
+      canvas.toBlob((blob) => {
+        if (blob !== null) {
+          saveAs(blob, "comment-frame.png");
+        }
       });
+    });
   };
 
   return (
@@ -93,6 +98,7 @@ const CommentFrame = () => {
               <option value="JeonjuCraftGoR">전주공예고딕</option>
               <option value="BookkMyungjo">부크크명조</option>
             </select>
+
             <input
               placeholder="페이지 수"
               value={pgNm}
@@ -100,7 +106,20 @@ const CommentFrame = () => {
               className="p-2 ml-2 w-[80px] rounded-md border-solid"
             />
           </div>
-
+          <div>
+            <button
+              onClick={() => handleImage("scale-150")}
+              className="bg-blue-300 text-white p-1 ml-1 rounded-md"
+            >
+              사진확대
+            </button>
+            <button
+              onClick={() => handleImage("scale-100")}
+              className="bg-blue-300 text-white p-1 ml-1 rounded-md"
+            >
+              원래크기
+            </button>
+          </div>
           <div className="flex gap-1 mb-4">
             <button
               onClick={handleReset}
@@ -132,11 +151,13 @@ const CommentFrame = () => {
           backgroundColor: imageColor ? imageColor : "#959591",
         }}
       >
-        <img
-          src={imageFile} // 이미지 파일의 Blob URL
-          className="mt-9 rounded-xl object-cover w-[250px] h-[250px]"
-          alt="이미지"
-        />
+        <div className="mt-9 flex items-center justify-center overflow-hidden rounded-xl w-[250px] h-[250px]">
+          <img
+            src={imageFile} // 이미지 파일의 Blob URL
+            className={`w-[100%] ${imageStyle}`}
+            alt="이미지"
+          />
+        </div>
         <div className="absolute top-0 left-0 w-full h-full bg-neutral-800/80" />
         <div className="absolute bottom-0 w-full overflow-hidden">
           <div className="flex flex-col items-center h-[300px] rounded-t-xl bg-[#191919] shadow-md p-5">
@@ -162,13 +183,6 @@ const CommentFrame = () => {
           </div>
         </div>
       </div>
-      {capture ? (
-        <a href={capture} target="_blank" rel="noopener noreferrer">
-          만든 이미지로 바로가기
-        </a>
-      ) : (
-        <></>
-      )}
     </div>
   );
 };
