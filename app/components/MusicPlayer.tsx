@@ -32,11 +32,16 @@ const MusicPlayer = ({ endTime }: { endTime: string }) => {
         </div>
       </div>
       <div className="flex justify-center items-center gap-5">
-        <img src="/shuffle.svg" alt="shuffle Icon" width={20} height={20} />
-        <img src="/previous.svg" alt="previous Icon" width={40} height={40} />
-        <img src="/pause.svg" alt="pause Icon" width={40} height={40} />
-        <img src="/skip.svg" alt="skip Icon" width={40} height={40} />
-        <img src="/repeat.svg" alt="repeat Icon" width={20} height={20} />
+        <img src="/shuffle.svg" alt="shuffle Icon" width="50%" height="50%" />
+        <img
+          src="/previous.svg"
+          alt="previous Icon"
+          width="100%"
+          height="100%"
+        />
+        <img src="/pause.svg" alt="pause Icon" width="100%" height="100%" />
+        <img src="/skip.svg" alt="skip Icon" width="100%" height="100%" />
+        <img src="/repeat.svg" alt="repeat Icon" width="50%" height="50%" />
       </div>
     </div>
   );
