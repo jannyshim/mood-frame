@@ -6,6 +6,8 @@ import ImageUpload from "../components/ImageUpload";
 import MusicPlayer from "../components/MusicPlayer";
 import { fonts } from "../utils/fonts";
 import * as htmlToImage from "html-to-image";
+import html2canvas from "html2canvas";
+import saveAs from "file-saver";
 
 const InstaFrame = () => {
   const [title, setTitle] = useState("제목");
@@ -14,7 +16,7 @@ const InstaFrame = () => {
   const [imageColor, setImageColor] = useState<string>("");
   const [imageFile, setImageFile] = useState("/catpic.jpeg");
   const [fontStyle, setFontStyle] = useState("ChosunNm");
-  const [capture, setCapture] = useState("");
+  // const [capture, setCapture] = useState("");
 
   let textFont = fonts[fontStyle];
 
@@ -45,16 +47,33 @@ const InstaFrame = () => {
     console.log(e.currentTarget.value);
   };
 
+  // const handleCaptureAndDownload = async () => {
+  //   if (!divRef.current) return;
+
+  //   const div = divRef.current;
+
+  //   htmlToImage
+  //     .toJpeg(div, { includeQueryParams: true })
+  //     .then(function (dataUrl) {
+  //       setCapture(dataUrl);
+  //     });
+  // };
   const handleCaptureAndDownload = async () => {
     if (!divRef.current) return;
 
     const div = divRef.current;
 
-    htmlToImage
-      .toJpeg(div, { includeQueryParams: true })
-      .then(function (dataUrl) {
-        setCapture(dataUrl);
+    html2canvas(div, {
+      scale: 2,
+      scrollX: div.scrollLeft,
+      scrollY: div.scrollTop,
+    }).then((canvas) => {
+      canvas.toBlob((blob) => {
+        if (blob !== null) {
+          saveAs(blob, "insta-frame.png");
+        }
       });
+    });
   };
 
   return (
@@ -148,13 +167,13 @@ const InstaFrame = () => {
           <MusicPlayer endTime={endTime} />
         </div>
       </div>
-      {capture ? (
+      {/* {capture ? (
         <a href={capture} target="_blank" rel="noopener noreferrer">
           만든 이미지로 바로가기
         </a>
       ) : (
         <></>
-      )}
+      )} */}
     </div>
   );
 };
