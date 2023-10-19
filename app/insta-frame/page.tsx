@@ -13,7 +13,7 @@ const InstaFrame = () => {
   const [subtitle, setSubtitle] = useState("소제목");
   const [endTime, setEndTime] = useState("02:37");
   const [imageColor, setImageColor] = useState<string>("");
-  const [imageFile, setImageFile] = useState("/catpic.jpeg");
+  const [imageFileSrc, setImageFileSrc] = useState("/catpic.jpeg");
   const [fontStyle, setFontStyle] = useState("ChosunNm");
   const [imageStyle, setImageStyle] = useState("");
 
@@ -65,12 +65,12 @@ const InstaFrame = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center mb-3">
       <ImageUpload
         imageColor={imageColor}
         setImageColor={setImageColor}
-        imageFile={imageFile}
-        setImageFile={setImageFile}
+        imageFile={imageFileSrc}
+        setImageFile={setImageFileSrc}
       />
       <div className="flex flex-col justify-between items-center mt-3 gap-3">
         <input
@@ -154,7 +154,7 @@ const InstaFrame = () => {
         <div>
           <div className="mt-7 flex items-center justify-center overflow-hidden rounded-xl w-[250px] h-[250px]">
             <img
-              src={imageFile}
+              src={imageFileSrc}
               className={`w-[100%] ${imageStyle}`}
               alt="이미지"
             />

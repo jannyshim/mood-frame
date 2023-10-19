@@ -18,7 +18,8 @@
     "html2canvas": "^1.4.1",
     "next": "13.5.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-range": "^1.8.14"
   },
   "devDependencies": {
     "@types/file-saver": "^2.0.5",
