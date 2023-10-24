@@ -145,7 +145,7 @@ const CommentFrame = () => {
       <div
         ref={divRef}
         className={
-          "relative flex flex-col items-center w-[350px] h-[462px] pb-4 mb-4"
+          "relative flex flex-col items-center w-[466px] h-[466px] pb-4 mb-4"
         }
         style={{
           backgroundColor: imageColor ? imageColor : "#959591",

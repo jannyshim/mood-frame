@@ -145,7 +145,7 @@ const InstaFrame = () => {
       <div
         ref={divRef}
         className={
-          "flex flex-col justify-center items-center w-[350px] pb-4 mb-4"
+          "flex flex-col justify-center items-center w-[466px] pb-4 mb-4"
         }
         style={{
           backgroundColor: imageColor ? imageColor : "#959591",
@@ -164,7 +164,7 @@ const InstaFrame = () => {
           </h1>
           <p className={`text-lg mb-3 text-slate-50 ${textFont}`}>{subtitle}</p>
         </div>
-        <div className={`flex flex-row w-4/5 ${textFont}`}>
+        <div className={`flex flex-row ${textFont}`}>
           <MusicPlayer endTime={endTime} />
         </div>
       </div>
