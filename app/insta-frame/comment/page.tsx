@@ -79,6 +79,7 @@ const CommentFrame = () => {
             onChange={handleContentChange}
             required
             className="p-2 ml-2 rounded-md border-solid h-[100px]"
+            style={{ whiteSpace: "pre-wrap" }}
           />
 
           <input
@@ -175,7 +176,10 @@ const CommentFrame = () => {
                   <p>@jamiero__</p>
                   <p>{minute}</p>
                 </div>
-                <p className={`text-l mb-3 text-slate-50 ${textFont}`}>
+                <p
+                  className={`text-l mb-3 text-slate-50 ${textFont}`}
+                  style={{ whiteSpace: "pre-wrap" }}
+                >
                   {content}
                 </p>
               </div>
