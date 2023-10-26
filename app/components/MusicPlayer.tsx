@@ -1,15 +1,33 @@
 "use client";
-import React, { useState } from "react";
-import { Range } from "react-range";
+import React, { useEffect, useState } from "react";
+import { Range, getTrackBackground } from "react-range";
 
 const MusicPlayer = ({ endTime }: { endTime: string }) => {
   const [currentTime, setCurrentTime] = useState<number[]>([0]); // 현재 재생 위치 상태
+  const [nowTime, setNowTime] = useState("00:00");
 
   const handleTimeChange = (newTime: number[]) => {
     // 토글을 조절할 때 호출되는 함수
-
     setCurrentTime(newTime);
   };
+
+  const calculateTime = (percent: number) => {
+    const totalSeconds =
+      parseInt(endTime.split(":")[0]) * 60 + parseInt(endTime.split(":")[1]);
+    const currentSeconds = Math.round((totalSeconds * percent) / 100);
+    const minutes = Math.floor(currentSeconds / 60);
+    const seconds = currentSeconds % 60;
+    return `${minutes.toString().padStart(2, "0")}:${seconds
+      .toString()
+      .padStart(2, "0")}`;
+  };
+
+  useEffect(() => {
+    // currentTime 값이 변경될 때마다 nowTime을 계산하여 설정합니다.
+    const percent = currentTime[0];
+    const newNowTime = calculateTime(percent);
+    setNowTime(newNowTime);
+  }, [currentTime]);
 
   return (
     <div className="w-full items-center">
@@ -26,7 +44,12 @@ const MusicPlayer = ({ endTime }: { endTime: string }) => {
                 {...props}
                 className="h-1 w-[250px] relative"
                 style={{
-                  backgroundColor: "rgba(200, 200, 200, 0.5)",
+                  background: getTrackBackground({
+                    values: currentTime,
+                    colors: ["#849ED1", "#ccc"],
+                    min: 0,
+                    max: 100,
+                  }),
                 }}
               >
                 {children}
@@ -45,7 +68,7 @@ const MusicPlayer = ({ endTime }: { endTime: string }) => {
         </div>
         {/* 시작/종료 시간 */}
         <div className="flex text-slate-50 w-[280px] items-center">
-          <span>00:00</span>
+          <span>{nowTime}</span>
           <span className="ml-auto">{endTime}</span>
         </div>
       </div>
