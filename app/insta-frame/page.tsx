@@ -108,7 +108,7 @@ const InstaFrame = () => {
         </select>
         <div>
           <button
-            onClick={() => handleImage("scale-150")}
+            onClick={() => handleImage("scale-[1.8]")}
             className="bg-blue-300 text-white p-1 ml-1 rounded-md"
           >
             사진확대
