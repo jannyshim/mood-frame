@@ -134,10 +134,20 @@ const InstaFrame = () => {
             사진변환
           </button>
           <button
-            onClick={handleCommentClick}
+            onClick={() => {
+              router.push(`/insta-frame/comment?imageColor=${imageColor}`);
+            }}
             className="bg-blue-500 text-white p-1 ml-1 rounded-md w-20"
           >
             댓글프레임
+          </button>
+          <button
+            onClick={() => {
+              router.push(`/insta-frame/only-comment?imageColor=${imageColor}`);
+            }}
+            className="bg-blue-500 text-white p-1 ml-1 rounded-md w-30"
+          >
+            댓글전체프레임
           </button>
         </div>
       </div>
