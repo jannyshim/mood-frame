@@ -47,7 +47,7 @@ const OnlyCommentFrame = () => {
     html2canvas(div, { allowTaint: true }).then((canvas) => {
       canvas.toBlob((blob) => {
         if (blob !== null) {
-          saveAs(blob, "comment-frame.png");
+          saveAs(blob, "only-comment-frame.png");
         }
       });
     });

@@ -37,7 +37,7 @@ const CelebrationFrame = () => {
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
-  const handleSubtitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSubtitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setSubtitle(e.target.value);
   };
   const handleReset = () => {
@@ -64,13 +64,15 @@ const CelebrationFrame = () => {
 
     const div = divRef.current;
 
-    html2canvas(div, { allowTaint: true }).then((canvas) => {
-      canvas.toBlob((blob) => {
-        if (blob !== null) {
-          saveAs(blob, "insta-frame.png");
-        }
-      });
-    });
+    html2canvas(div, { imageTimeout: 15000, allowTaint: true }).then(
+      (canvas) => {
+        canvas.toBlob((blob) => {
+          if (blob !== null) {
+            saveAs(blob, "celebration-frame.png");
+          }
+        });
+      }
+    );
   };
 
   return (
@@ -94,9 +96,8 @@ const CelebrationFrame = () => {
         <div>
           <ColorPallet onSelectColor={handleTitleColorSelect} />
         </div>
-        <input
-          type="text"
-          placeholder="소제목"
+        <textarea
+          placeholder="내용"
           value={subtitle}
           onChange={handleSubtitleChange}
           required
@@ -167,7 +168,7 @@ const CelebrationFrame = () => {
             <p
               ref={nodeRefSubtitle}
               className="text-lg"
-              style={{ color: paragraphColor }}
+              style={{ color: paragraphColor, whiteSpace: "pre" }}
             >
               {subtitle}
             </p>
