@@ -94,13 +94,13 @@ const OnlyCommentFrame = () => {
           <div className="flex gap-1 mb-4">
             <button
               onClick={handleReset}
-              className="bg-blue-500 text-white p-1 ml-1 rounded-md w-20"
+              className="bg-blue-500 text-white p-1 ml-1 rounded-md w-20 pointer"
             >
               다시 쓰기
             </button>
             <button
               onClick={handleCaptureAndDownload}
-              className="bg-blue-500 text-white p-1 ml-1 rounded-md w-20"
+              className="bg-blue-500 text-white p-1 ml-1 rounded-md w-20 pointer"
             >
               사진변환
             </button>
@@ -108,7 +108,7 @@ const OnlyCommentFrame = () => {
               onClick={() => {
                 router.push(`/insta-frame`);
               }}
-              className="bg-blue-500 text-white p-1 ml-1 rounded-md w-30"
+              className="bg-blue-500 text-white p-1 ml-1 rounded-md w-30 pointer"
             >
               인스타프레임
             </button>
@@ -116,7 +116,7 @@ const OnlyCommentFrame = () => {
               onClick={() => {
                 router.push(`/insta-frame/comment?imageColor=${imageColor}`);
               }}
-              className="bg-blue-500 text-white p-1 ml-1 rounded-md w-30"
+              className="bg-blue-500 text-white p-1 ml-1 rounded-md w-30 pointer"
             >
               댓글프레임
             </button>

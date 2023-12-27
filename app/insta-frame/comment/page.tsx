@@ -110,13 +110,13 @@ const CommentFrame = () => {
           <div>
             <button
               onClick={() => handleImage("scale-[1.8]")}
-              className="bg-blue-300 text-white p-1 ml-1 rounded-md"
+              className="bg-blue-300 text-white p-1 ml-1 rounded-md pointer"
             >
               사진확대
             </button>
             <button
               onClick={() => handleImage("scale-100")}
-              className="bg-blue-300 text-white p-1 ml-1 rounded-md"
+              className="bg-blue-300 text-white p-1 ml-1 rounded-md pointer"
             >
               원래크기
             </button>
@@ -124,13 +124,13 @@ const CommentFrame = () => {
           <div className="flex gap-1 mb-4">
             <button
               onClick={handleReset}
-              className="bg-blue-500 text-white p-1 ml-1 rounded-md w-20"
+              className="bg-blue-500 text-white p-1 ml-1 rounded-md w-20 pointer"
             >
               다시 쓰기
             </button>
             <button
               onClick={handleCaptureAndDownload}
-              className="bg-blue-500 text-white p-1 ml-1 rounded-md w-20"
+              className="bg-blue-500 text-white p-1 ml-1 rounded-md w-20 pointer"
             >
               사진변환
             </button>
@@ -138,7 +138,7 @@ const CommentFrame = () => {
               onClick={() => {
                 router.push(`/insta-frame`);
               }}
-              className="bg-blue-500 text-white p-1 ml-1 rounded-md w-30"
+              className="bg-blue-500 text-white p-1 ml-1 rounded-md w-30 pointer"
             >
               인스타프레임
             </button>
@@ -148,7 +148,7 @@ const CommentFrame = () => {
                   `/insta-frame/only-comment?imageColor=${imageColor}`
                 );
               }}
-              className="bg-blue-500 text-white p-1 ml-1 rounded-md w-30"
+              className="bg-blue-500 text-white p-1 ml-1 rounded-md w-30 pointer"
             >
               댓글전체프레임
             </button>
