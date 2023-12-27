@@ -5,8 +5,8 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "insta-frame",
-  description: "인스타용 감성글귀 만들기",
+  title: "something-frame",
+  description: "감성글귀 만들기",
   icons: {
     icon: "/favicon.ico",
   },
