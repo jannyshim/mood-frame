@@ -64,7 +64,7 @@ const CelebrationFrame = () => {
 
     const div = divRef.current;
 
-    html2canvas(div, { imageTimeout: 15000, allowTaint: true }).then(
+    html2canvas(div, { imageTimeout: 15000, scale: 3, allowTaint: true }).then(
       (canvas) => {
         canvas.toBlob((blob) => {
           if (blob !== null) {
