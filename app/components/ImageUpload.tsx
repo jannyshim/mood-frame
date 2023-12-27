@@ -7,11 +7,13 @@ const ImageUpload = ({
   setImageColor,
   imageFile,
   setImageFile,
+  showColorPicker,
 }: {
   imageColor: string;
   setImageColor: React.Dispatch<React.SetStateAction<string>>;
   imageFile: string;
   setImageFile: React.Dispatch<React.SetStateAction<string>>;
+  showColorPicker: boolean;
 }) => {
   const [imageSrc, setImageSrc] = useState(imageFile);
   const [color, setColor] = useState("");
@@ -69,28 +71,25 @@ const ImageUpload = ({
 
   return (
     <div className="flex flex-col justify-center items-center mt-5">
-      <input
-        accept="image/*"
-        multiple
-        type="file"
-        onChange={(e) => onUpload(e)}
-      />
-      <div className="flex justify-center items-center">
-        배경색 선택 🎨
-        {colorPalette.map((color, index) => (
-          <button
-            key={index}
-            style={{
-              backgroundColor: color,
-              width: "24px",
-              height: "24px",
-              margin: "3px",
-            }}
-            onClick={handleClick}
-            value={color}
-          />
-        ))}
-      </div>
+      <input accept="image/*" type="file" onChange={(e) => onUpload(e)} />
+      {showColorPicker && (
+        <div className="flex justify-center items-center">
+          배경색 선택 🎨
+          {colorPalette.map((color, index) => (
+            <button
+              key={index}
+              style={{
+                backgroundColor: color,
+                width: "24px",
+                height: "24px",
+                margin: "3px",
+              }}
+              onClick={handleClick}
+              value={color}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
